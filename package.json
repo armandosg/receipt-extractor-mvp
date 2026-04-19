@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest",
+    "test:ci": "vitest run"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.64",
