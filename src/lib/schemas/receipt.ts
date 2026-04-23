@@ -15,7 +15,10 @@ import { z } from "zod";
  */
 export const receiptSchema = z.object({
   /** Date printed on the receipt, normalized to DD/MM/YYYY format. */
-  date: z.string().describe("Date in DD/MM/YYYY format"),
+  date: z
+    .string()
+    .regex(/^\d{2}\/\d{2}\/\d{4}$/, "Date must be in DD/MM/YYYY format")
+    .describe("Date in DD/MM/YYYY format"),
 
   /** Store or vendor name as it appears on the receipt. */
   merchant: z.string().describe("Store or vendor name"),
