@@ -16,11 +16,10 @@ export const MOCK_RECEIPT = {
 /**
  * Builds the Google Generative AI API response envelope expected by the
  * Vercel AI SDK (`@ai-sdk/google`).
- *
  * @param data - The structured JSON object to embed in the response text.
  * @returns A response body matching the Gemini `generateContent` format.
  */
-function geminiResponse(data: unknown) {
+export function geminiResponse(data: unknown) {
   return {
     candidates: [
       {
