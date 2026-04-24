@@ -11,6 +11,7 @@
 import { generateText, Output } from "ai";
 import { google } from "@ai-sdk/google";
 import { type Receipt, receiptSchema } from "@/lib/schemas/receipt";
+import { RECEIPT_EXTRACTION_PROMPT } from "@/lib/prompts/receiptExtraction";
 import log from "@/lib/logger";
 
 /** MIME types accepted for receipt processing. */
@@ -90,18 +91,7 @@ export async function processReceipt(
             },
             {
               type: "text",
-              text: [
-                "Extract structured data from the attached receipt image or PDF.",
-                "",
-                "Instructions:",
-                "- Auto-detect the language (Spanish or English).",
-                "- For `date`: extract and normalize to DD/MM/YYYY format regardless of the original format on the receipt.",
-                "- For `merchant`: extract the store or vendor name.",
-                "- For `totalAmount`: extract the final total as a number without currency symbols.",
-                "- For `currency`: infer the currency from context (default to MXN if ambiguous).",
-                "- For `expenseType`: infer a category from the items (e.g. 'Daily Expense', 'Groceries', 'Service', 'Installment').",
-                "- For `paymentMethod`: infer from any payment information on the receipt, or 'Unknown' if not visible.",
-              ].join("\n"),
+              text: RECEIPT_EXTRACTION_PROMPT,
             },
           ],
         },
