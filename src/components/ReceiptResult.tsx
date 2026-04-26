@@ -36,6 +36,7 @@ export default function ReceiptResult({ data }: ReceiptResultProps) {
     { label: "Currency", value: data.currency },
     { label: "Expense Type", value: data.expenseType },
     { label: "Payment Method", value: data.paymentMethod },
+    { label: "Account Number", value: data.accountNumber },
   ];
 
   return (
