@@ -1,8 +1,9 @@
-import { test as base, type Page } from "@playwright/test";
+import { test as base, type APIRequestContext } from "@playwright/test";
+import { MOCK_PORT } from "./mock-server";
 
 /**
  * Mock receipt data matching the shape from src/mocks/handlers.ts.
- * Used by the Gemini API route mock to return deterministic responses.
+ * Used for asserting expected values in tests.
  */
 export const MOCK_RECEIPT = {
   date: "15/04/2026",
@@ -15,74 +16,30 @@ export const MOCK_RECEIPT = {
 };
 
 /**
- * Builds the Gemini generateContent response envelope expected by the
- * Vercel AI SDK (`@ai-sdk/google`).
- * @param data - The structured JSON object to embed in the response.
- * @returns A response body matching the Gemini `generateContent` format.
+ * Switch the mock Gemini server to error mode via its control endpoint.
+ * @param request - Playwright API request context.
  */
-function geminiResponse(data: unknown) {
-  return {
-    candidates: [
-      {
-        content: {
-          parts: [{ text: JSON.stringify(data) }],
-          role: "model",
-        },
-        finishReason: "STOP",
-      },
-    ],
-    usageMetadata: {
-      promptTokenCount: 100,
-      candidatesTokenCount: 50,
-      totalTokenCount: 150,
-    },
-  };
+export async function setMockError(request: APIRequestContext) {
+  await request.post(`http://localhost:${MOCK_PORT}/__control/error`);
 }
 
 /**
- * Intercepts Gemini API requests on the given page and returns a
- * successful mock receipt response.
- * @param page - The Playwright page to intercept requests on.
+ * Switch the mock Gemini server back to success mode via its control endpoint.
+ * @param request - Playwright API request context.
  */
-export async function mockGeminiAPI(page: Page) {
-  await page.route(
-    "**/generativelanguage.googleapis.com/**",
-    async (route) => {
-      await route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify(geminiResponse(MOCK_RECEIPT)),
-      });
-    },
-  );
+export async function setMockSuccess(request: APIRequestContext) {
+  await request.post(`http://localhost:${MOCK_PORT}/__control/success`);
 }
 
 /**
- * Intercepts Gemini API requests on the given page and returns an error.
- * @param page - The Playwright page to intercept requests on.
+ * Extended Playwright test fixture that resets the mock server to success
+ * mode after each test to prevent cross-test contamination.
  */
-export async function mockGeminiAPIError(page: Page) {
-  await page.route(
-    "**/generativelanguage.googleapis.com/**",
-    async (route) => {
-      await route.fulfill({
-        status: 500,
-        contentType: "application/json",
-        body: JSON.stringify({ error: { message: "Internal server error" } }),
-      });
-    },
-  );
-}
-
-/**
- * Extended Playwright test fixture that automatically mocks the Gemini API
- * with a successful response before each test.
- */
-export const test = base.extend<{ geminiMock: void }>({
-  geminiMock: [
-    async ({ page }, use) => {
-      await mockGeminiAPI(page);
+export const test = base.extend<{ mockReset: void }>({
+  mockReset: [
+    async ({ request }, use) => {
       await use();
+      await setMockSuccess(request);
     },
     { auto: true },
   ],

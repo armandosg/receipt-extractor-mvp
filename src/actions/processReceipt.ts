@@ -9,10 +9,19 @@
  */
 
 import { generateText, Output } from "ai";
-import { google } from "@ai-sdk/google";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { type Receipt, receiptSchema } from "@/lib/schemas/receipt";
 import { RECEIPT_EXTRACTION_PROMPT } from "@/lib/prompts/receiptExtraction";
 import log from "@/lib/logger";
+
+/**
+ * Google Generative AI provider instance.
+ * Supports an optional `GOOGLE_GENERATIVE_AI_BASE_URL` environment variable
+ * to override the default API endpoint (used for E2E test mocking).
+ */
+const google = createGoogleGenerativeAI({
+  baseURL: process.env.GOOGLE_GENERATIVE_AI_BASE_URL,
+});
 
 /** MIME types accepted for receipt processing. */
 const ALLOWED_MIME_TYPES = new Set([
