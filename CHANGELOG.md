@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.3.0] - 2026-04-26
+
+### Added
+- Add Playwright E2E test infrastructure with Chromium.
+- Add mock HTTP server intercepting Gemini API calls server-side for E2E tests.
+- Add global setup/teardown for mock server lifecycle.
+- Add configurable `GOOGLE_GENERATIVE_AI_BASE_URL` env var in `processReceipt`.
+- Add 6 E2E scenarios: image upload, PDF upload, clipboard copy, unsupported file rejection, API error handling, and file removal.
+- Add `test:e2e` and `test:e2e:ui` scripts to `package.json`.
+- Add Playwright E2E step to GitHub Actions CI workflow with artifact upload.
+
+### Changed
+- Exclude `e2e/` directory from Vitest to prevent runner conflicts.
+- Use `createGoogleGenerativeAI` with optional base URL instead of default `google` import.
+
 ## [0.2.0] - 2026-04-26
 
 ### Added
