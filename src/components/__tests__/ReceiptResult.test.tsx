@@ -10,6 +10,7 @@ const mockReceipt: Receipt = {
   currency: "MXN",
   expenseType: "Daily Expense",
   paymentMethod: "Cash",
+  accountNumber: "xxxx0354",
 };
 
 describe("ReceiptResult", () => {
@@ -23,6 +24,7 @@ describe("ReceiptResult", () => {
     expect(screen.getByText("MXN")).toBeInTheDocument();
     expect(screen.getByText("Daily Expense")).toBeInTheDocument();
     expect(screen.getByText("Cash")).toBeInTheDocument();
+    expect(screen.getByText("xxxx0354")).toBeInTheDocument();
   });
 
   it("renders labels for each field", () => {
@@ -34,5 +36,6 @@ describe("ReceiptResult", () => {
     expect(screen.getByText("Currency")).toBeInTheDocument();
     expect(screen.getByText("Expense Type")).toBeInTheDocument();
     expect(screen.getByText("Payment Method")).toBeInTheDocument();
+    expect(screen.getByText("Account Number")).toBeInTheDocument();
   });
 });

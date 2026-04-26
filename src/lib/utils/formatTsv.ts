@@ -8,7 +8,6 @@ import type { Receipt } from "@/lib/schemas/receipt";
 
 /**
  * Strips tab and newline characters from a string value.
- *
  * @param value - The raw field value.
  * @returns The sanitized string with tabs and newlines removed.
  */
@@ -19,8 +18,7 @@ function sanitize(value: string): string {
 /**
  * Formats a {@link Receipt} as a tab-separated string.
  *
- * Column order: Date → Merchant → Total → Currency → Expense Type → Payment Method.
- *
+ * Column order: Date → Merchant → Total → Currency → Expense Type → Payment Method → Account Number.
  * @param receipt - The validated receipt data.
  * @returns A single-line TSV string (no trailing newline).
  */
@@ -32,5 +30,6 @@ export function formatReceiptToTsv(receipt: Receipt): string {
     sanitize(receipt.currency),
     sanitize(receipt.expenseType),
     sanitize(receipt.paymentMethod),
+    sanitize(receipt.accountNumber),
   ].join("\t");
 }

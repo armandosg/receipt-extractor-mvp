@@ -34,6 +34,9 @@ export const receiptSchema = z.object({
 
   /** AI-inferred payment method (e.g. "Cash", "BBVA Debit", "Unknown"). */
   paymentMethod: z.string().describe("AI-inferred payment method"),
+
+  /** Masked account number from payment info (e.g. "xxxx0354", "Unknown"). */
+  accountNumber: z.string().describe("Masked account number (e.g. xxxx0354)"),
 });
 
 /** TypeScript type inferred from {@link receiptSchema}. */

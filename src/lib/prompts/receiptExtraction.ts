@@ -26,4 +26,5 @@ export const RECEIPT_EXTRACTION_PROMPT = [
   "- For `currency`: infer the currency from context (default to MXN if ambiguous).",
   "- For `expenseType`: infer a category from the items (e.g. 'Daily Expense', 'Groceries', 'Service', 'Installment').",
   "- For `paymentMethod`: infer from any payment information on the receipt, or 'Unknown' if not visible.",
+  "- For `accountNumber`: extract the masked account number from payment info (e.g. 'xxxx0354'). Return 'Unknown' if not visible.",
 ].join("\n");

@@ -28,6 +28,7 @@ const mockReceiptData = {
   currency: "MXN",
   expenseType: "Daily Expense",
   paymentMethod: "Cash",
+  accountNumber: "xxxx0354",
 };
 
 function createMockFile(name: string, size: number, type: string): File {
@@ -95,6 +96,7 @@ describe("Receipt extraction full flow", () => {
     expect(screen.getByText("MXN")).toBeInTheDocument();
     expect(screen.getByText("Daily Expense")).toBeInTheDocument();
     expect(screen.getByText("Cash")).toBeInTheDocument();
+    expect(screen.getByText("xxxx0354")).toBeInTheDocument();
 
     // 7. Copy button is visible — re-mock clipboard (userEvent.setup replaces it)
     Object.defineProperty(navigator, "clipboard", {
@@ -107,7 +109,7 @@ describe("Receipt extraction full flow", () => {
 
     await waitFor(() => {
       expect(writeTextMock).toHaveBeenCalledWith(
-        "23/04/2026\tOxxo\t152.5\tMXN\tDaily Expense\tCash",
+        "23/04/2026\tOxxo\t152.5\tMXN\tDaily Expense\tCash\txxxx0354",
       );
     });
 

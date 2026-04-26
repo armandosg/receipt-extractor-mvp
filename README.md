@@ -29,7 +29,7 @@ A streamlined, frictionless web application designed to automate expense trackin
 ### Phase 2: Schema Definition & Proposed Data Structure
 **Goal:** Define the data extraction targets and unit test the validation logic.
 
-* Propose a baseline `ReceiptSchema` using Zod. Recommended fields: `Date`, `Merchant`, `Total Amount`, `Expense Type` (e.g., Daily Expense, Service, Installment), and `Payment Method` (e.g., Cash, BBVA, Mercado Pago).
+* Propose a baseline `ReceiptSchema` using Zod. Recommended fields: `Date`, `Merchant`, `Total Amount`, `Expense Type` (e.g., Daily Expense, Service, Installment), `Payment Method` (e.g., Cash, BBVA, Mercado Pago), and `Account Number` (masked, e.g., xxxx0354).
 * **JSDoc:** Add descriptive JSDoc blocks to the schema definition, explaining the purpose of each field and its expected format.
 * **Unit Testing:** Write tests for the Zod schema to verify it correctly accepts valid data objects and throws expected errors for missing or malformed data.
 

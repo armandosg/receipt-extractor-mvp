@@ -10,6 +10,7 @@ const mockReceipt: Receipt = {
   currency: "MXN",
   expenseType: "Daily Expense",
   paymentMethod: "Cash",
+  accountNumber: "xxxx0354",
 };
 
 describe("CopyButton", () => {
@@ -31,7 +32,7 @@ describe("CopyButton", () => {
 
     await waitFor(() => {
       expect(writeTextMock).toHaveBeenCalledWith(
-        "23/04/2026\tOxxo\t152.5\tMXN\tDaily Expense\tCash",
+        "23/04/2026\tOxxo\t152.5\tMXN\tDaily Expense\tCash\txxxx0354",
       );
     });
   });
