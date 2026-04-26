@@ -9,12 +9,13 @@ const validReceipt: Receipt = {
   currency: "MXN",
   expenseType: "Daily Expense",
   paymentMethod: "Cash",
+  accountNumber: "xxxx0354",
 };
 
 describe("formatReceiptToTsv", () => {
   it("returns correct tab-separated string for a valid Receipt", () => {
     const result = formatReceiptToTsv(validReceipt);
-    expect(result).toBe("23/04/2026\tOxxo\t152.5\tMXN\tDaily Expense\tCash");
+    expect(result).toBe("23/04/2026\tOxxo\t152.5\tMXN\tDaily Expense\tCash\txxxx0354");
   });
 
   it("column order is Date, Merchant, Total, Currency, ExpenseType, PaymentMethod", () => {
@@ -26,6 +27,7 @@ describe("formatReceiptToTsv", () => {
       "MXN",
       "Daily Expense",
       "Cash",
+      "xxxx0354",
     ]);
   });
 

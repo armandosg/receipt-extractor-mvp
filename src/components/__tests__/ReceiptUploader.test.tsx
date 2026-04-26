@@ -159,6 +159,7 @@ describe("ReceiptUploader", () => {
       currency: "MXN",
       expenseType: "Groceries",
       paymentMethod: "Cash",
+      accountNumber: "xxxx0354",
     }};
     vi.mocked(processReceipt).mockResolvedValueOnce(mockResult);
 

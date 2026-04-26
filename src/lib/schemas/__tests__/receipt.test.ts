@@ -9,6 +9,7 @@ const validReceipt = {
   currency: "MXN",
   expenseType: "Daily Expense",
   paymentMethod: "Cash",
+  accountNumber: "xxxx0354",
 };
 
 describe("receiptSchema", () => {

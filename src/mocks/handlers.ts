@@ -11,6 +11,7 @@ export const MOCK_RECEIPT = {
   currency: "MXN",
   expenseType: "Daily Expense",
   paymentMethod: "Cash",
+  accountNumber: "xxxx0354",
 };
 
 /**
