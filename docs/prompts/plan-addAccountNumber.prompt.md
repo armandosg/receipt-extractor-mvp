@@ -4,17 +4,17 @@ Add a new `accountNumber` string field to the receipt extraction pipeline — sc
 
 **Steps**
 
-### Phase 1: Data Model & Prompt *(blocking — all later phases depend on this)*
+### Phase 1: Data Model & Prompt *(blocking — all later phases depend on this)* ✅
 
 1. **Schema** — In `src/lib/schemas/receipt.ts`, add `accountNumber: z.string().describe("Masked account number (e.g. xxxx0354)")` to `receiptSchema`.
 2. **Prompt** — In `src/lib/prompts/receiptExtraction.ts`, add a bullet: *"For `accountNumber`: extract the masked account number from payment info (e.g. 'xxxx0354'). Return 'Unknown' if not visible."*
 
-### Phase 2: Output Formatting & UI *(parallel with each other, depends on Phase 1)*
+### Phase 2: Output Formatting & UI *(parallel with each other, depends on Phase 1)* ✅
 
 3. **TSV formatter** — In `src/lib/utils/formatTsv.ts`, append `sanitize(receipt.accountNumber)` after `paymentMethod`.
 4. **UI component** — In `src/components/ReceiptResult.tsx`, add `{ label: "Account Number", value: data.accountNumber }` to the `fields` array.
 
-### Phase 3: Test Fixtures & Assertions *(depends on Phases 1 & 2)*
+### Phase 3: Test Fixtures & Assertions *(depends on Phases 1 & 2)* ✅
 
 5. **Mock handler** — Add `accountNumber: "xxxx0354"` to `MOCK_RECEIPT` in `src/mocks/handlers.ts`.
 6. **Schema tests** — Update `validReceipt` and add validation case in `src/lib/schemas/__tests__/receipt.test.ts`.
