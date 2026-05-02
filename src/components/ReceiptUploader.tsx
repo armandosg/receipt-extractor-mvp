@@ -7,7 +7,7 @@
  * images client-side, and shows a preview before submission.
  */
 
-import { useState, useRef, useCallback, type ChangeEvent } from "react";
+import { useState, useRef, useCallback, useEffect, type ChangeEvent } from "react";
 import { Upload, FileText, Loader2, X } from "lucide-react";
 import imageCompression from "browser-image-compression";
 import log from "@/lib/logger";
@@ -36,6 +36,11 @@ interface ReceiptUploaderProps {
    * @param processing - `true` when a receipt is being processed.
    */
   readonly onProcessingChange: (processing: boolean) => void;
+  /**
+   * A file received externally (e.g. via the Web Share Target API).
+   * When set, the uploader loads and previews it automatically.
+   */
+  readonly initialFile?: File | null;
 }
 
 /**
@@ -86,9 +91,10 @@ async function compressIfImage(file: File): Promise<File> {
  * @param props - Component props.
  * @param props.onResult - Callback receiving the server action result.
  * @param props.onProcessingChange - Callback receiving processing state changes.
+ * @param props.initialFile - An optional file to load on mount (e.g. from Web Share Target).
  * @returns The rendered uploader component.
  */
-export default function ReceiptUploader({ onResult, onProcessingChange }: ReceiptUploaderProps) {
+export default function ReceiptUploader({ onResult, onProcessingChange, initialFile }: ReceiptUploaderProps) {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -137,6 +143,13 @@ export default function ReceiptUploader({ onResult, onProcessingChange }: Receip
     },
     [revokePreview],
   );
+
+  // Load a file supplied externally (e.g. from Web Share Target)
+  useEffect(() => {
+    if (initialFile) {
+      handleFile(initialFile);
+    }
+  }, [initialFile]); // eslint-disable-line react-hooks/exhaustive-deps
 
   /**
    * Handle file input change event.
