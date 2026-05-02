@@ -1,7 +1,8 @@
 /**
  * @module Home
  * @description Main page composing ReceiptUploader, ReceiptResult, CopyButton,
- * and ErrorMessage to form the receipt extraction flow.
+ * and ErrorMessage to form the receipt extraction flow. Also handles files
+ * received via the Web Share Target API through the {@link useSharedFile} hook.
  */
 
 "use client";
@@ -13,6 +14,7 @@ import ReceiptUploader from "@/components/ReceiptUploader";
 import ReceiptResult from "@/components/ReceiptResult";
 import CopyButton from "@/components/CopyButton";
 import ErrorMessage from "@/components/ErrorMessage";
+import { useSharedFile } from "@/hooks/useSharedFile";
 
 /**
  * Home page for the receipt data extractor.
@@ -24,6 +26,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 export default function Home() {
   const [result, setResult] = useState<ProcessReceiptResult | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const { sharedFile } = useSharedFile();
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-gray-50 px-4 py-12">
@@ -41,6 +44,7 @@ export default function Home() {
         <ReceiptUploader
           onResult={setResult}
           onProcessingChange={setIsProcessing}
+          initialFile={sharedFile}
         />
 
         {isProcessing && (
