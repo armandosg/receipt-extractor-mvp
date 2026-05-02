@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.64",
+    "@serwist/next": "^9.5.10",
     "ai": "^6.0.168",
     "browser-image-compression": "^2.0.2",
     "loglevel": "^1.9.2",
@@ -39,6 +40,7 @@
     "eslint-plugin-jsdoc": "^61.7.1",
     "jsdom": "^27.0.1",
     "msw": "^2.13.4",
+    "serwist": "^9.5.10",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vite-tsconfig-paths": "^6.1.1",
